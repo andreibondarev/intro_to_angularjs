@@ -1,0 +1,30 @@
+<h1>To Do List</h1>
+<hr/>
+
+Add new:<br/>
+<form name='newItem'>
+  <input type='text' name='description' ng-model='description' required />
+  <input type='submit' value='Add' ng-click='submit_form()' ng-disabled='newItem.$invalid' />
+</form>
+
+<h2>
+  Pending ({{(to_do_list | filter:{status: false}).length}})
+</h2>
+
+<div ng-repeat='item in to_do_list | filter:{status: false}'>
+  <input type='checkbox' ng-model='item.status' />
+  {{item.description | uppercase}}
+  <b style='color:red;' ng-click='remove_item(item)'>x</b>  
+</div>
+
+<h2>
+  Complete ({{(to_do_list | filter:{status: true}).length}})
+</h2>
+
+<div ng-repeat='item in to_do_list | filter:{status: true}'>
+  <input type='checkbox' ng-model='item.status' />
+  <strike>{{item.description}}</strike>
+  <b style='color:red;' ng-click='remove_item(item)'>x</b>
+</div>
+
+</div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+
+<body>
+
+<div ng-app="toDoList">
+  <div ng-view=''></div>
+</div>
+
+<script>
+  var app = angular.module("toDoList", ['ngRoute']);
+
+  app.config(function($routeProvider) {
+    $routeProvider.when('/', {
+      templateUrl: 'templates/home.html'
+    });
+    $routeProvider.when('/to_do_list', {
+      templateUrl: 'templates/to_do_list.html',
+      controller: 'toDoListController'
+    });
+  });
+
+  app.controller('toDoListController', function($scope) {
+    $scope.submit_form = function() {
+      $scope.to_do_list.push({
+        description: $scope.description,
+        status: false
+      });
+      $scope.description = '';
+    }
+    $scope.remove_item = function(item) {
+      index = $scope.to_do_list.indexOf(item);
+      $scope.to_do_list.splice(index, 1);
+    }
+
+    $scope.to_do_list = [
+      {
+        description: 'Explain the architecture',
+        status: true
+      },
+      {
+        description: 'Eat a banana',
+        status: false
+      },
+      {
+        description: 'Conquer the world!',
+        status: false
+      }
+    ]
+  });
+</script>
+
+</body>
+
+</html>
